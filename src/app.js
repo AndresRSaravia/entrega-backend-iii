@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import dotenv from "dotenv";
 
 import usersRouter from './routes/users.router.js';
 import petsRouter from './routes/pets.router.js';
@@ -9,8 +10,10 @@ import sessionsRouter from './routes/sessions.router.js';
 import mocksController from './routes/mocks.router.js';
 
 const app = express();
+dotenv.config();
 const PORT = process.env.PORT||8080;
-const connection = mongoose.connect(`mongodb+srv://Coderhouse:LGq5DquPk9frqrXz@clustertest.xo7pn.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTest/`);
+const MONGOURL = process.env.MONGOURL
+const connection = mongoose.connect(MONGOURL);
 
 app.use(express.json());
 app.use(cookieParser());
