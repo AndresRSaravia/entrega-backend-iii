@@ -1,12 +1,12 @@
 paths:
   /api/users:
     get:
-      summary: Obtenemos todos los usuarios correctamente
+      summary: Obtener la lista de usuarios
       tags:
         - Users
       responses:
         "200":
-          description: Obtienen todos los usuarios correctamente
+          description: lista de usuarios obtenida
           content:
             application/json:
               schema:
@@ -14,9 +14,9 @@ paths:
                 items:
                   $ref: "#components/schemas/User"
         "500":
-          description: Error interno del servidor
+          description: error interno del servidor
     post:
-      summary: Este endpoint crea un usuario
+      summary: Crear un usuario
       tags:
         - Users
       requestBody:
@@ -32,7 +32,7 @@ paths:
           description: error interno del servidor
   /api/users/{id}:
     get:
-      summary: Se obtiene un usuario por id
+      summary: Obtener un usuario por id
       tags:
         - Users
       parameters:
@@ -46,7 +46,7 @@ paths:
         "404":
           description: usuario no encontrado
     put:
-      summary: Se modifica el usuario
+      summary: Modificar un usuario por id
       tags:
         - Users
       parameters:
@@ -68,7 +68,7 @@ paths:
         "500":
           description: error interno del servidor
     delete:
-      summary: Se elimina un usuario por id
+      summary: Eliminar un usuario por id
       tags:
         - Users
       parameters:
@@ -90,7 +90,7 @@ components:
       properties:
         -id:
           type: ObjectId
-          description: ID autogenerado por MongoDB
+          description: Id autogenerado por MongoDB
         first_name:
           type: string
           description: Nombre del usuario
@@ -99,7 +99,7 @@ components:
           description: Apellido del usuario
         password:
           type: string
-          description: Password del usuario
+          description: Contraseña del usuario
       example:
         _id: ObjectId("123456")
         first_name: John
@@ -117,10 +117,10 @@ components:
           description: Apellido del usuario
         password: 
           type: string
-          description: Password del usuario
+          description: Contraseña del usuario
         email:
           type: string
-          description: email del usuario
+          description: Email del usuario
       example: 
         first_name: John
         last_name: Doe

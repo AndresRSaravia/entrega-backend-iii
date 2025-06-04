@@ -10,13 +10,13 @@ const getAllUsers = async(req,res) => {
 }
 
 const createUser = async (req, res) => {
-    try {
-        const newUser = req.body;
-        await usersService.create(newUser);
-        res.status(201).send({status: "success", message: "Usuario creado"});
-    } catch (error) {
+	try {
+		const newUser = req.body;
+		await usersService.create(newUser);
+		res.status(201).send({status: "success", message: "Usuario creado"});
+	} catch (error) {
 		res.status(500).send({status:"error", message: "Error del servidor"})
-    }
+	}
 }
 
 const getUser = async(req,res)=> {
@@ -62,8 +62,8 @@ const deleteUser = async(req,res) =>{
 
 export default {
 	createUser,
-    deleteUser,
-    getAllUsers,
-    getUser,
-    updateUser
+	deleteUser,
+	getAllUsers,
+	getUser,
+	updateUser
 }
