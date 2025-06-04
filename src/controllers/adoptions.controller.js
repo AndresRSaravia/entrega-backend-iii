@@ -23,7 +23,7 @@ const createAdoption = async(req,res)=>{
     await usersService.update(user._id,{pets:user.pets})
     await petsService.update(pet._id,{adopted:true,owner:user._id})
     await adoptionsService.create({owner:user._id,pet:pet._id})
-    res.send({status:"success",message:"Pet adopted"})
+    res.status(201).send({status:"success",message:"Pet adopted"})
 }
 
 export default {

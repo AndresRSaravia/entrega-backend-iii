@@ -3,7 +3,7 @@ import { usersService } from "../services/index.js"
 const getAllUsers = async(req,res) => {
 	try {
 		const users = await usersService.getAll();
-		res.status(200).send({status:"success", message: "Pedido de usuarios logrado", payload: users})
+		res.status(200).send({status:"success", message: "Pedido de usuarios logrado", payload: [users]})
 	} catch (error) {
 		res.status(500).send({status:"error", message: "Error del servidor"})
 	}
@@ -12,10 +12,13 @@ const getAllUsers = async(req,res) => {
 const createUser = async (req, res) => {
 	try {
 		const newUser = req.body;
-		await usersService.create(newUser);
-		res.status(201).send({status: "success", message: "Usuario creado"});
+		console.log(newUser)
+		const userResult = await usersService.create(newUser);
+		console.log(newUser,userResult)
+		res.status(201).send({status: "success", message: "Usuario creado", payload: userResult});
 	} catch (error) {
-		res.status(500).send({status:"error", message: "Error del servidor"})
+		console.log(error)
+		res.status(500).send({status:"error", message: "Error del servidor al crear un usuario", error: error})
 	}
 }
 
