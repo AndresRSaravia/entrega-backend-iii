@@ -1,0 +1,128 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtenemos todos los usuarios correctamente
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Obtienen todos los usuarios correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/User"
+        "500":
+          description: Error interno del servidor
+    post:
+      summary: Este endpoint crea un usuario
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: "#components/requestBodies/createUser"
+      responses:
+        "201":
+          description: usuario creado con exito
+        "500":
+          description: error interno del servidor
+  /api/users/{id}:
+    get:
+      summary: Se obtiene un usuario por id
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: usuario encontrado con exito
+        "404":
+          description: usuario no encontrado
+    put:
+      summary: Se modifica el usuario
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: "#components/requestBodies/createUser"
+      responses:
+        "200":
+          description: usuario actualizado con exito
+        "404":
+          description: usuario no encontrado
+        "500":
+          description: error interno del servidor
+    delete:
+      summary: Se elimina un usuario por id
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          description: usuario eliminado con exito
+        "404":
+          description: usuario no encontrado
+        "500":
+          description: error interno del servidor
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        -id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        password:
+          type: string
+          description: Password del usuario
+      example:
+        _id: ObjectId("123456")
+        first_name: John
+        last_name: Doe
+        password: 1234
+  requestBodies:
+    createUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: Nombre del usuario
+        last_name:
+          type: string
+          description: Apellido del usuario
+        password: 
+          type: string
+          description: Password del usuario
+        email:
+          type: string
+          description: email del usuario
+      example: 
+        first_name: John
+        last_name: Doe
+        password: 1234
+        email: jd@gmail.com
