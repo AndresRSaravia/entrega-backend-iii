@@ -12,9 +12,7 @@ const getAllUsers = async(req,res) => {
 const createUser = async (req, res) => {
 	try {
 		const newUser = req.body;
-		console.log(newUser)
 		const userResult = await usersService.create(newUser);
-		console.log(newUser,userResult)
 		res.status(201).send({status: "success", message: "Usuario creado", payload: userResult});
 	} catch (error) {
 		console.log(error)

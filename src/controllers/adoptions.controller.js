@@ -2,17 +2,18 @@ import { adoptionsService, petsService, usersService } from "../services/index.j
 
 const getAllAdoptions = async(req,res)=>{
     const result = await adoptionsService.getAll();
-    res.send({status:"success",payload:result})
+    res.status(200).send({status:"success",payload:result})
 }
 
 const getAdoption = async(req,res)=>{
     const adoptionId = req.params.aid;
     const adoption = await adoptionsService.getBy({_id:adoptionId})
     if(!adoption) return res.status(404).send({status:"error",error:"Adoption not found"})
-    res.send({status:"success",payload:adoption})
+    res.status(200).send({status:"success",payload:adoption})
 }
 
 const createAdoption = async(req,res)=>{
+	console.log(req.params)
     const {uid,pid} = req.params;
     const user = await usersService.getUserById(uid);
     if(!user) return res.status(404).send({status:"error", error:"user Not found"});
@@ -22,8 +23,8 @@ const createAdoption = async(req,res)=>{
     user.pets.push(pet._id);
     await usersService.update(user._id,{pets:user.pets})
     await petsService.update(pet._id,{adopted:true,owner:user._id})
-    await adoptionsService.create({owner:user._id,pet:pet._id})
-    res.status(201).send({status:"success",message:"Pet adopted"})
+    const adoption = await adoptionsService.create({owner:user._id,pet:pet._id})
+    res.status(201).send({status:"success",message:"Pet adopted",payload:adoption})
 }
 
 export default {
