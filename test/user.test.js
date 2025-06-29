@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import { expect } from "chai";
 
 const requester = supertest("http://localhost:8080");
-const MONGOURL = "mongodb+srv://Coderhouse:LGq5DquPk9frqrXz@clustertest.xo7pn.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTest/";
+const MONGOURL = "";
 const connection = mongoose.connect(MONGOURL);
 
 describe("Test del DAO de usuarios", function() {
